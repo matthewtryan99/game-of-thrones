@@ -59,10 +59,33 @@ for(var i = 1; i < 50; i++)
                 let modalBody = document.querySelector('.modal-body')
                 let lordIndexArray = fullHouseList[index].currentLord.split('/')
                 let lordIndex = lordIndexArray.pop()
-                let lord = fullCharList[lordIndex].name
+                let lord = fullCharList[lordIndex]
                 console.log(lord);
-                modalBody.innerHTML = `<div>Region: ${fullHouseList[index].region}</div><div>Coat of Arms: ${fullHouseList[index].coatOfArms}</div><div>Current Lord: ${fullCharList[lordIndex].name}</div>`
+                if(lord != undefined)
+                {
+                    modalBody.innerHTML = `<div>Region: ${fullHouseList[index].region}</div><div>Coat of Arms: ${fullHouseList[index].coatOfArms}</div><div id='lord'>Current Lord: ${lord}</div>`
+                }
+                else
+                {
+                    modalBody.innerHTML = `<div>Region: ${fullHouseList[index].region}</div><div id='lord'>Coat of Arms: ${fullHouseList[index].coatOfArms}</div>`
+                }
+                let sworn = document.createElement('div')
+                sworn.id = "sworn"
+                sworn.textContent = "Sworn Memebers:"
+                let lordNode = document.querySelector('#lord')
+                lordNode.append(sworn)
+                let div = document.createElement('div')
+                sworn.append(div)
 
+                for(let i = 0; i < fullHouseList.length; i++)
+                {
+                    let memberIndexArr = fullHouseList[index].swornMembers[i].split('/');
+                    let memberIndex = memberIndexArr.pop();
+                    let div2 = document.createElement('div');
+                    div2.textContent = fullCharList[memberIndex-1].name
+                    div.append(div2)
+
+                }
             })
         }
     })
